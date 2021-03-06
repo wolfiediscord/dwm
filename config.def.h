@@ -27,7 +27,6 @@ static const char *const autostart[] = {
 	"nitrogen", "--restore", NULL,
 	"compton", "-b", "--no-fading-openclose", NULL,
 	"dwmblocks", NULL,
-	"redshift", NULL,
 	NULL /* terminate */
 };
 
@@ -70,8 +69,8 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_orange, "-sf", col_gray4, "-h", "25", NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char *browsercmd[] = {"brave-browser", NULL};
-static const char *filebrowsercmd[] = {"thunar", NULL};
+static const char *browsercmd[] = {"chromium", NULL};
+static const char *filebrowsercmd[] = {"nemo", NULL};
 static const char *screenshotcmd[] = {"flameshot", "gui", NULL};
 
 static Key keys[] = {
