@@ -1,5 +1,5 @@
 /* See LICENSE file for copyright and license details. */
-
+#include <X11/XF86keysym.h>
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int gappx     = 6;        /* gaps between windows */
@@ -7,8 +7,8 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int user_bh            = 25;       /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height. REMEMBER TO CHANGE DMENU IF YOU CHANGE THIS */
-static const char *fonts[]          = { "TerminessTTF Nerd Font:size=12" };
-static const char dmenufont[]       = "TerminessTTF Nerd Font:size=12";
+static const char *fonts[]          = { "RobotoMono Nerd Font:size=10:style=Regular" };
+static const char dmenufont[]       = "RobotoMono Nerd Font:size=10:style=Regular";
 static const char col_gray1[]       = "#282828";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -82,8 +82,12 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_p,      spawn, 	   {.v = screenshotcmd } },
 	{ MODKEY,			XK_s,      spawn, 	   SHCMD("slock") },
 	{ MODKEY|ShiftMask,		XK_s,	   spawn,	   SHCMD("systemctl suspend") },
-	{ MODKEY,			XK_minus,  spawn, 	   SHCMD("amixer -D pulse sset Master 5%-") },
-	{ MODKEY,			XK_equal,  spawn,	   SHCMD("amixer -D pulse sset Master 5%+") },
+	{ MODKEY,			XK_q,	   spawn,	   SHCMD("$HOME/.local/share/bin/dmscripts/dmlogout") },
+	{ 0,				XF86XK_Search,		  spawn,	   {.v = dmenucmd } },
+	{ 0,				XF86XK_Sleep, 		  spawn,	   SHCMD("systemctl suspend") },
+	{ 0,				XF86XK_AudioLowerVolume,  spawn, 	   SHCMD("amixer -D pulse sset Master 5%-") },
+	{ 0,				XF86XK_AudioRaiseVolume,  spawn,	   SHCMD("amixer -D pulse sset Master 5%+") },
+	{ 0,				XF86XK_AudioMute,	  spawn,	   SHCMD("amixer -D pulse sset Master 0%") },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
