@@ -70,8 +70,12 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_orange, "-sf", col_gray4, "-h", "25", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *browsercmd[] = {"chromium", NULL};
-static const char *filebrowsercmd[] = {"nemo", NULL};
+static const char *filebrowsercmd[] = {"nautilus", NULL};
 static const char *screenshotcmd[] = {"flameshot", "gui", NULL};
+
+static const char *upvolcmd[] = {"pactl", "set-sink-volume", "0", "+5%", NULL};
+static const char *downvolcmd[] = {"pactl", "set-sink-volume", "0", "-5%", NULL};
+static const char *mutevolcmd[] = {"pactl", "set-sink-mute", "0", "toggle", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -85,9 +89,9 @@ static Key keys[] = {
 	{ MODKEY,			XK_q,	   spawn,	   SHCMD("$HOME/.local/share/bin/dmscripts/dmlogout") },
 	{ 0,				XF86XK_Search,		  spawn,	   {.v = dmenucmd } },
 	{ 0,				XF86XK_Sleep, 		  spawn,	   SHCMD("systemctl suspend") },
-	{ 0,				XF86XK_AudioLowerVolume,  spawn, 	   SHCMD("amixer -D pulse sset Master 5%-") },
-	{ 0,				XF86XK_AudioRaiseVolume,  spawn,	   SHCMD("amixer -D pulse sset Master 5%+") },
-	{ 0,				XF86XK_AudioMute,	  spawn,	   SHCMD("amixer -D pulse sset Master 0%") },
+	{ 0,				XF86XK_AudioLowerVolume,  spawn, 	   {.v = downvolcmd} },
+	{ 0,				XF86XK_AudioRaiseVolume,  spawn,	   {.v = upvolcmd} },
+	{ 0,				XF86XK_AudioMute,	  spawn,	   {.v = mutevolcmd } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
