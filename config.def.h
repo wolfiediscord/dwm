@@ -9,16 +9,17 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const int user_bh            = 25;       /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height. REMEMBER TO CHANGE DMENU IF YOU CHANGE THIS */
 static const char *fonts[]          = { "RobotoMono Nerd Font:size=10:style=Regular" };
 static const char dmenufont[]       = "RobotoMono Nerd Font:size=10:style=Regular";
-static const char col_gray1[]       = "#282828";
+static const char col_gray1[]       = "#282c34";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#5E81AC";
 static const char col_orange[]      = "#d65d0e";
+static const char col_blue[]	    = "#61afef";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_orange,  col_orange  },
+	[SchemeSel]  = { col_gray4, col_blue,  col_blue  },
 };
 
 static const char *const autostart[] = {
@@ -69,25 +70,29 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_orange, "-sf", col_gray4, "-h", "25", NULL };
-static const char *termcmd[]  = { "st", NULL };
-static const char *browsercmd[] = {"chromium", NULL};
+
+/* programs */
+static const char *termcmd[]  = { "alacritty", NULL };
+static const char *browsercmd[] = {"brave", NULL};
 static const char *filebrowsercmd[] = {"nautilus", NULL};
 static const char *screenshotcmd[] = {"flameshot", "gui", NULL};
 
+/* volume keys */
 static const char *upvolcmd[] = {"pactl", "set-sink-volume", "0", "+5%", NULL};
 static const char *downvolcmd[] = {"pactl", "set-sink-volume", "0", "-5%", NULL};
 static const char *mutevolcmd[] = {"pactl", "set-sink-mute", "0", "toggle", NULL};
 
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_p,      spawn,          SHCMD("$HOME/.config/rofi/launchers/colorful/launcher.sh") },
 	{ MODKEY,           		XK_x,	   spawn,          {.v = termcmd } },
 	{ MODKEY,			XK_b,	   spawn,	   {.v = browsercmd } },
 	{ MODKEY,			XK_e,      spawn, 	   {.v = filebrowsercmd } },
 	{ MODKEY|ShiftMask,		XK_p,      spawn, 	   {.v = screenshotcmd } },
 	{ MODKEY,			XK_s,      spawn, 	   SHCMD("slock") },
 	{ MODKEY|ShiftMask,		XK_s,	   spawn,	   SHCMD("systemctl suspend") },
-	{ MODKEY,			XK_q,	   spawn,	   SHCMD("$HOME/.local/share/bin/dmscripts/dmlogout") },
+	{ MODKEY,			XK_q,	   spawn,	   SHCMD("$HOME/.config/rofi/powermenu/powermenu.sh") },
 	{ 0,				XF86XK_Search,		  spawn,	   {.v = dmenucmd } },
 	{ 0,				XF86XK_Sleep, 		  spawn,	   SHCMD("systemctl suspend") },
 	{ 0,				XF86XK_AudioLowerVolume,  spawn, 	   {.v = downvolcmd} },
